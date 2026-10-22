@@ -226,7 +226,7 @@
           </div>
         </section>
 
-        <!-- 3. GRAPHING CALCULATOR (FIXED) -->
+        <!-- 3. GRAPHING CALCULATOR -->
         <section id="panel-graphing" class="calc-panel bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hidden flex flex-col md:flex-row h-[600px]">
             <!-- Sidebar / Function List & Controls -->
             <div class="w-full md:w-96 bg-white border-r border-slate-200 flex flex-col h-full z-10 shadow-sm">
@@ -1192,7 +1192,7 @@
     }
 
     /* ==========================================
-       3. GRAPHING CALCULATOR (FIXED & FULLY IMPLEMENTED)
+       3. GRAPHING CALCULATOR
     ========================================== */
     let graphFunctions = [
       { expr: 'x * x - 4', color: '#0284c7', active: true },
@@ -1324,11 +1324,9 @@
       const originX = width / 2 + panX;
       const originY = height / 2 + panY;
 
-      // Background
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, width, height);
 
-      // Grid Lines
       ctx.strokeStyle = '#f1f5f9';
       ctx.lineWidth = 1;
 
@@ -1348,7 +1346,6 @@
         ctx.beginPath(); ctx.moveTo(0, py2); ctx.lineTo(width, py2); ctx.stroke();
       }
 
-      // Axes
       ctx.strokeStyle = '#64748b';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -1356,7 +1353,6 @@
       ctx.moveTo(originX, 0); ctx.lineTo(originX, height);
       ctx.stroke();
 
-      // Axis labels
       ctx.fillStyle = '#94a3b8';
       ctx.font = '10px monospace';
       ctx.textAlign = 'center';
@@ -1377,7 +1373,6 @@
         }
       }
 
-      // Plot Functions
       graphFunctions.forEach(fn => {
         if (!fn.active || !fn.expr.trim()) return;
 
@@ -1899,6 +1894,12 @@
 
     /* INITIALIZATION */
     window.onload = function() {
+      // Hide top header automatically when embedded inside Blogger iframe
+      if (window.self !== window.top) {
+        const topHeader = document.querySelector('header');
+        if (topHeader) topHeader.style.display = 'none';
+      }
+
       initNavigation();
       initUnitTabs();
       calcLoan();
